@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YT_Summarizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>YT RAG</header>
+
+    <div class="container">
+        <div class="input-box">
+            <input type="text" id="topic-input" placeholder="What is AI agents? (video length ≤ 15 min)">
+            <button id="search-btn">Search</button>
+        </div>
+
+        <div class="results" id="video-results">
+            <div class="video-row">
+                <iframe id="video-1" class="video-frame" src="https://www.youtube.com/embed/FwOTs4UxQS4" allowfullscreen></iframe>
+                <iframe id="video-2" class="video-frame" src="https://www.youtube.com/embed/HISRUrJsD08" allowfullscreen></iframe>
+                <iframe id="video-3" class="video-frame" src="https://www.youtube.com/embed/F8NKVhkZZWI" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchBtn = document.getElementById("search-btn");
+            searchBtn.addEventListener("click", searchVideos);
+
+            async function searchVideos() {
+                const topicInput = document.getElementById("topic-input");
+                const topic = topicInput.value.trim();
+                if (!topic) return;
+
+                try {
+                    const response = await fetch("/search_videos", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ topic })
+                    });
+
+                    const data = await response.json();
+                    const videos = data.videos || [];
+
+                    videos.forEach((video, index) => {
+                        const iframe = document.getElementById(`video-${index + 1}`);
+                        if (iframe) {
+                            iframe.src = video.iframe;
+                        }
+                    });
+
+                } catch (err) {
+                    alert("Error fetching videos. Please try again.");
+                    console.error(err);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

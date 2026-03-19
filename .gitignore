@@ -1,0 +1,53 @@
+# 🔹 Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 🔹 Virtual Environment
+envs/
+venv/
+.venv/
+
+# 🔹 Environment variables (secrets)
+.env
+.env.*
+
+# 🔹 Logs
+*.log
+
+# 🔹 Database files
+*.sqlite3
+db.sqlite3
+
+# 🔹 VS Code / IDE
+.vscode/
+.idea/
+
+# 🔹 OS files
+.DS_Store
+Thumbs.db
+
+# 🔹 Build / Distribution
+build/
+dist/
+*.egg-info/
+
+# 🔹 Jupyter Notebook
+.ipynb_checkpoints/
+
+# 🔹 Large / unnecessary files
+*.so
+*.zip
+*.tar.gz
+
+# 🔹 Node (if using frontend tools)
+node_modules/
+
+# 🔹 Coverage / testing
+.coverage
+htmlcov/
+
+# 🔹 Temporary files
+*.tmp
+*.swp

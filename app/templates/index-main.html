@@ -1,0 +1,654 @@
+<html>
+   <head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
+   <!-- Favicon -->
+   <link rel="icon" href="../assets/img/fav.png">
+   <title>Summerize Youtube</title>
+   <!-- CSS -->
+   <link rel="stylesheet" href="../assets/css/bootstrap.css">
+      <link rel="stylesheet" href="../assets/css/owl.carousel.min.css" type="text/css">
+   <link rel="stylesheet" href="../assets/css/owl.theme.default.css" type="text/css">
+   <link rel="stylesheet" href="../assets/css/style.css" type="text/css">
+   <link rel="stylesheet" href="../assets/css/color.css" type="text/css">
+
+   <!-- Icons CSS -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   </head>
+<body>
+<header>
+         <nav class="navbar navbar-expand-md position-static">
+            <a class="navbar-brand" href="https://www.kisworks.com/">
+            <img src="https://www.kisworks.com/v2/img/logo.png" alt="image" width="108" height="47">
+            </a>
+            
+            <div class="rightNav d-flex align-items-center">
+               
+            <a href="https://www.kisworks.com/technologies/ai-development" class="ai-top-btn ">
+              <img src="https://www.kisworks.com/v2/img/ai-dvelopment-icon.gif" alt="ai-dvelopment-icon">
+            </a>
+           
+            
+                <a href="https://www.kisworks.com/contact-us" class="lets_talk_btn btn btn-outline-light me-5">Let’s Talk</a>
+               <div class="button_toggle" id="ToggleMenu">
+                  <span class="top"></span>
+                  <span class="middle"></span>
+                  <span class="bottom"></span>
+                </div>
+            </div>
+            <div class="overlay-navbar" id="OverlayMenu">
+               <nav class="overlay-menu">
+                  <div class="overlay_inner">
+                     <div class="container">
+                        <div class="row">
+                           <div class="col-lg-3 offset-lg-2 d-lg-block d-none">
+                              <ul class="menus d-flex justify-content-between flex-column">
+                                  <li><a href="https://www.kisworks.com/our-services" class="link">Services</a></li>
+								 <li><a href="https://www.kisworks.com/about" class="link">About</a></li>
+								   <li><a href="http://kisworks.com/blog/all-posts/" class="link">Blogs</a></li> 
+                                
+                               </ul>
+                           </div>
+                           <div class="col-lg-4 offset-lg-1">
+                              <ul class="menus d-flex justify-content-between flex-column">
+							     <li class="d-lg-none d-block"><a href="https://www.kisworks.com/" class="link">Home</a></li>
+                                 <li><a href="https://www.kisworks.com/casestudies/index" class="link">Case Studies</a></li>
+								  <li class="d-lg-none d-block"><a href="https://www.kisworks.com/about" class="link">About</a></li>
+								 <li><a href="https://www.kisworks.com/process" class="link">Process</a></li>
+								  <li class="d-lg-none d-block"><a href="https://www.kisworks.com/process" class="link">Process</a></li>
+                                 <li class="contact-btn"><a href="https://www.kisworks.com/contact-us" class="link">Contact</a></li>
+								  <li class="d-lg-none d-block"><a href="http://kisworks.com/blog/all-posts/" class="link">Blogs</a></li> 
+                               </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </nav>
+             </div>
+         </nav>
+      </header>
+<div class="mobile-dev">
+   <!-- Hero Section Start -->
+   <section class="landing-banner">
+      <div class="container h-100">
+         <div class="row justify-content-center align-items-center h-100">
+            <div class="col-md-6 col-lg-5">
+               <div class="landing-banner-text">
+                  <h1>Get summaries of your favorite youtube videos</h1>
+               </div>
+            </div>
+            <div class="col-md-6 col-lg-7">
+               <div class="landing-banner-img">
+                  <img src="../assets/img/summerize-demo.gif" alt="summerize-demo">
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="summarize-search-bar">
+      <div class="container">
+         <div class="row justify-content-center">
+            <div class="col-md-9">
+               <div class="landing-banner-search">
+                  <form action="" onsubmit="return false;"> <!-- prevent actual reload -->
+                     <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter the video topic" aria-label="https://youtube.com/" aria-describedby="banner-search">
+                        <button class="btn btn-outline-secondary" type="button" id="banner-search">Submit</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!-- Summerize Video-card -->
+   <section class="summerize-video-card pb-0">
+      <div class="container">
+         <div id="videoResults" class="row gy-3 justify-content-center">
+         </div>
+      </div>
+   </section>
+
+    <section class="summarize-video d-none">
+      <div class="container">
+         <div class="chat-video-wrapper">
+            <div class="chat-video-left">
+                <iframe id="chat-iframe" class="responsive-chat-iframe" src="" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+            <div class="chat-video-right">
+                <div class="d-flex align-items-center mb-3">
+                <ul class="nav nav-pills summarize-tabs" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-chat-tab" data-bs-toggle="pill" data-bs-target="#pills-chat" type="button" role="tab" aria-controls="pills-chat" aria-selected="false">
+                        <i class="fa-solid fa-comments"></i>
+                    </button>
+                    </li>
+                </ul>
+                </div>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-list" tabindex="0">
+                        <div class="chat-container">
+                            
+                            <!-- Messages area -->
+                            <div class="chat-messages" id="chat-messages">
+                            <!-- Demo message shown initially -->
+                            <div id="chat-placeholder" class="chat-placeholder">💬 Ask anything about this video</div>
+                            </div>
+
+                            <!-- Input area -->
+                            <div class="chat-input-area">
+                            <div class="input-group">
+                                <input type="text" id="chat-input" class="form-control" placeholder="Ask a question...">
+                                <!-- <button id="chat-submit" class="btn btn-primary" data-videoid="">Ask</button> -->
+                                 <button id="chat-submit" class="btn btn-primary d-flex align-items-center gap-2" data-videoid="">
+                                    <span class="btn-text">Ask</span>
+                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="tab-pane fade" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-list" tabindex="0">
+                        <div class="insightfull-content-dsc-outer">
+                            <div class="top-comment">
+                                <div class="chat-input-area mt-4">
+                                    <div class="chat-messages" id="chat-messages"></div>
+
+                                    <div class="input-group mt-3">
+                                        <input type="text" id="chat-input" class="form-control" placeholder="Ask a question...">
+                                        <button id="chat-submit" class="btn btn-primary" data-videoid="">Ask</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            </div>
+         </div>
+      </div>
+    </section>
+
+   <!-- Summerize Video-card End -->
+
+   <section class="noiz-video pb-0">
+      <div class="container">
+         <div class="row gy-4">
+            <div class="col-md-12">
+               <div class="common_heading text-center">
+                  <h2><span class="d-block">Some key features</span></h2>
+               </div>
+            </div>
+            <div class="col-md-4">
+               <div class="noiz-video-box">
+                  <div class="noiz-video-box-img">
+                     <img src="../assets/img/core-concepts.png" alt="core-concepts">
+                  </div>
+                  <h3>Core Concepts</h3>
+                  <p class="mt-2">Extract key insights from any video — as a list or Q&A, in brief or detailed format.</p>
+               </div>
+            </div>
+            <div class="col-md-4">
+               <div class="noiz-video-box">
+                  <div class="noiz-video-box-img">
+                     <img src="../assets/img/get-the-gist-instantly.png" alt="get-the-gist-instantly">
+                  </div>
+                  <h3> Save Time, Get the Gist Instantly</h3>
+                  <p class="mt-2">Generate timestamped video summaries in 41 languages effortlessly.</p>
+               </div>
+            </div>
+            <div class="col-md-4">
+               <div class="noiz-video-box">
+                  <div class="noiz-video-box-img">
+                     <img src="../assets/img/video-to-text.png" alt="video-to-text">
+                  </div>
+                  <h3>Video to Text</h3>
+                  <p class="mt-2">Convert any YouTube video into accurate, easy-to-read text.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <section class="use-noiz-video">
+      <div class="container">
+         <div class="row justify-content-center">
+            <div class="col-md-12">
+               <div class="use-noiz-youtube mt-0">
+                  <h3>Save Time Smarter—Try AskTube, Your YouTube Summary Assistant</h3>
+                  <div class="use-noiz-youtube-btn mt-4 text-center">
+                     <a href="#" class="custom_btn2">Video Summarizer</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+<section class="rating-sec">
+     <div class="container">
+         <div class="common_heading text-center">
+             <!-- <a href="#" class="btn btn-outline-success">Testimonials</a> -->
+             <h2>Real Clients,<span>Real Impact</span></h2>
+             <p>Our clients' testimonials at KIS speak volumes about our commitment to providing top-notch software development services.</p>
+         </div>
+         <div class="rating-slider owl-carousel owl-theme owl-loaded owl-drag">
+         <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-3110px, 0px, 0px); transition: all; width: 6221px;"><div class="owl-item cloned" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/Devashish.png" alt="img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote_img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Devashish Saini</h4>
+                             <span>Founder, ROSS Clinics</span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>We hired KIS for ASP.NET website development couple of years back and we haven't looked elsewhere since then.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item cloned" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/Mahesh.png" alt="quote_img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote_img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Mahesh Yadav</h4>
+                             <span>CEO, Santulan Technologies</span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>With KIS working on the marketing of our website, our traffic bounced up by nearly 300% from last year.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item cloned" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/RichardSheridan.png" alt="img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote_img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Richard Sheridan </h4>
+                             <span>Managing Director, Death or Victory!</span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>Taking over for another vendor’s code, Krishna Innovative Software Pvt. Ltd. spearheaded game development, making significant progress toward launch. Their flexible communication and workstyle allow them to work independently. They communicate clearly and respond to questions quickly.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/Robert.png" alt="img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote_img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Robert Seeley </h4>
+                             <span>Director of Operations, Auto Avenues </span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>Their communication was good, especially for an offshore team, and they were very technically knowledgeable. In spite of a 12-hour time difference, they were always willing to Skype or have a phone call with us. The biggest hurdle was actually getting stateside developers to work with an adjusted schedule.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/RichardLaw.png" alt="img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote_img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Richard Law</h4>
+                             <span>CEO, iCE Angel - ID Limited</span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>
+                             The team showed impressive dedication to accomplishing all project tasks, no matter how challenging. They regularly asked questions to ensure they understood requirements, worked efficiently, and returned technically solid products. Beta tester feedback has been very positive despite some bugs.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/Mitchell.png" alt="img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Candace Mitchell Harris </h4>
+                             <span>Founder &amp; CEO, MYAVANA</span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>The most impressive thing about this company is how they consistently get the job done. What's even more impressive is their unwavering commitment to client service excellence. One of the standout qualities is their timeliness in executing and also maintaining data integrity and security.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item active" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/Devashish.png" alt="img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote_img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Devashish Saini</h4>
+                             <span>Founder, ROSS Clinics</span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>We hired KIS for ASP.NET website development couple of years back and we haven't looked elsewhere since then.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item active" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/Mahesh.png" alt="quote_img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote_img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Mahesh Yadav</h4>
+                             <span>CEO, Santulan Technologies</span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>With KIS working on the marketing of our website, our traffic bounced up by nearly 300% from last year.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/RichardSheridan.png" alt="img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote_img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Richard Sheridan </h4>
+                             <span>Managing Director, Death or Victory!</span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>Taking over for another vendor’s code, Krishna Innovative Software Pvt. Ltd. spearheaded game development, making significant progress toward launch. Their flexible communication and workstyle allow them to work independently. They communicate clearly and respond to questions quickly.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item cloned" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/Robert.png" alt="img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote_img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Robert Seeley </h4>
+                             <span>Director of Operations, Auto Avenues </span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>Their communication was good, especially for an offshore team, and they were very technically knowledgeable. In spite of a 12-hour time difference, they were always willing to Skype or have a phone call with us. The biggest hurdle was actually getting stateside developers to work with an adjusted schedule.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item cloned" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/RichardLaw.png" alt="img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote_img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Richard Law</h4>
+                             <span>CEO, iCE Angel - ID Limited</span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>
+                             The team showed impressive dedication to accomplishing all project tasks, no matter how challenging. They regularly asked questions to ensure they understood requirements, worked efficiently, and returned technically solid products. Beta tester feedback has been very positive despite some bugs.
+                         </p>
+                     </div>
+                 </div>
+             </div></div><div class="owl-item cloned" style="width: 518.4px;"><div class="item">
+                 <div class="customer_rating_main">
+                     <div class="customer_top">
+                         <div class="customer_img">
+                             <img src="https://www.kisworks.com/v2/img/testi/Mitchell.png" alt="img">
+                         </div>
+                         <div class="quote_icon">
+                             <img src="https://www.kisworks.com/v2/img/quote_icon.png" alt="quote img" class="quote_img">
+                         </div>
+                         <div class="customer_detail">
+                             <h4>Candace Mitchell Harris </h4>
+                             <span>Founder &amp; CEO, MYAVANA</span>
+                             <ul>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                                 <li><i class="fa-solid fa-star"></i></li>
+                             </ul>
+                         </div>
+                     </div>
+                     <div class="customer-content">
+                         <p>The most impressive thing about this company is how they consistently get the job done. What's even more impressive is their unwavering commitment to client service excellence. One of the standout qualities is their timeliness in executing and also maintaining data integrity and security.
+                         </p>
+                     </div>
+                 </div>
+             </div></div></div></div><div class="owl-nav"><button type="button" aria-label="presentation" class="owl-prev"><i class="fa-solid fa-arrow-left"></i></button><button type="button" aria-label="presentation" class="owl-next"><i class="fa-solid fa-arrow-right"></i></button></div><div class="owl-dots disabled"></div></div>
+         <!-- <div class="row">
+               <div class="col-md-12 text-center ">
+                  <a href="#" class="btn btn-outline-dark ViewAllBtn">View all</a>
+               </div>
+            </div> -->
+     </div>
+
+     <!-- Bidding Platforms Section Start -->
+     <div class="bidding-logos">
+         <div class="container">
+             <div class="row align-items-end">
+                 <div class="col-6 col-sm text-">
+                     <img class="img-fluid" src="https://www.kisworks.com/v2/img/1.6.png" alt="img">
+                 </div>
+                 <div class="col-6 col-sm">
+                     <img class="img-fluid" src="https://www.kisworks.com/v2/img/1.2.png" alt="img">
+                 </div>
+                 <div class="col-6 col-sm">
+                     <img class="img-fluid" src="https://www.kisworks.com/v2/img/1.3.png" alt="img">
+                 </div>
+                 <div class="col-6 col-sm">
+                     <img class="img-fluid" src="https://www.kisworks.com/v2/img/1.4.png" alt="img">
+                 </div>
+                 <div class="col-6 col-sm">
+                     <img class="img-fluid" src="https://www.kisworks.com/v2/img/1.5.png" alt="img">
+                 </div>
+             </div>
+         </div>
+     </div>
+     <!-- Bidding Platforms Section End -->
+ </section>
+   <footer class="footer pb-0">
+    <div class="container">      
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="https://www.kisworks.com/v2/img/footer-logo.png" class="img-fluid" alt="img" width="200" height="47">
+                
+                <ul class="footer_contact mt-3">
+                    <li><a href="https://maps.app.goo.gl/sPmmMWm91R3syB1S7"><i class="fa fa-map-marker" aria-hidden="true"></i> F-146, Phase 8-B, Industrial Area, Mohali, India-160071</a></li>
+                    <li><a href="mailto:info@krishnais.com"><i class="fa fa-envelope me-1"></i> <span>info@krishnais.com</span></a></li>
+                    <li><i class="fa fa-phone me-1"></i> <span>0172 467 6333</span></li>
+                </ul>
+            </div>
+            <div class="col-xxl-5 col-xl-4 col-lg-4">
+                <div class="menu-links">
+                    <h6>Quick Links</h6>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <ul>
+                                <li><a href="https://www.kisworks.com/our-services">Services</a></li>
+                                <li><a href="https://www.kisworks.com/casestudies/index">Case Studies</a></li>
+                                <li><a href="https://www.kisworks.com/blog/all-posts/" class="link">Blogs</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-5">
+                            <ul>
+                                <li><a href="https://www.kisworks.com/process" class="link">Process</a></li>
+                                <li><a href="https://www.kisworks.com/about">About</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-3 col-xl-4 col-lg-4">
+                <div class="menu-links">
+                    <h6>Follow Us</h6>
+                    <ul class="social-icons">
+                        <li><a href="https://www.facebook.com/KISWorks?mibextid=fVIIUt" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li><a href="https://www.instagram.com/krishnainnovative/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li><a href="https://twitter.com/kis_krishnais" target="_blank" aria-label="twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                        <!--<li><a href="https://www.linkedin.com/company/krishna-innovative-software-pvt-ltd/" target="_blank" aria-label="Linkedin"><i class="fa-brands fa-linkedin"></i></a></li>-->
+                        <li><a href="https://www.linkedin.com/company/1161121/admin/dashboard/" target="_blank" aria-label="Linkedin"><i class="fa-brands fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="border-top copy-right">
+            <p>© KIS. All Rights Reserved. <span class="mx-3">|</span> <a href="https://www.kisworks.com/terms-service" class="text-decoration-underline">Terms and Privacy</a></p>
+        </div>
+    </div>
+</footer>
+
+<div id="fullscreen-loader" class="d-none">
+  <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+<h4>Wait a moment, we are fetching top videos on this topic from youtube</h4>
+</div>
+
+
+</div>
+<script src="../assets/js/jquery-3.7.1.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.js"></script>
+<script src="../assets/js/owl.carousel.min.js"></script>
+<script src="../assets/js/script.js"></script>
+<script src="../assets/js/search.js"></script>
+
+</body>
+</html>

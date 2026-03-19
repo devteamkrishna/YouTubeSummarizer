@@ -1,0 +1,201 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YT-Summarizer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <!-- Header -->
+  <header class="bg-white shadow p-4">
+    <div class="max-w-4xl mx-auto flex justify-start items-center">
+      <h1 class="text-2xl font-bold text-blue-600">YT-Summarizer</h1>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto p-6">
+    <!-- Chat Modal -->
+    <div id="chatModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
+        <h2 class="text-xl font-bold mb-2">Chat with Video</h2>
+        <input id="chatInput" type="text" placeholder="Ask something..." class="w-full p-2 border rounded mb-4" />
+        <div class="flex justify-end gap-2">
+        <button onclick="closeChat()" class="px-4 py-2 bg-gray-300 rounded">Close</button>
+        <button onclick="sendChat()" class="px-4 py-2 bg-blue-600 text-white rounded">Send</button>
+        </div>
+        <div id="chatResponse" class="mt-4 text-sm text-gray-800"></div>
+    </div>
+    </div>
+
+    <!-- Search Box -->
+    <div class="mb-6">
+      <label for="topic" class="block text-lg font-medium mb-2">Enter Topic:</label>
+      <div class="flex gap-2">
+        <input id="topic" type="text" placeholder="e.g. What is AI Agents"
+               class="w-full p-2 border rounded-lg shadow-sm" />
+        <button onclick="searchVideos()" 
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Search
+        </button>
+      </div>
+    </div>
+
+    <!-- Loader -->
+    <div id="loader" class="hidden mb-4 text-blue-600 font-semibold">🔄 Loading...</div>
+
+    <!-- Results -->
+    <div id="results" class="space-y-6"></div>
+  </main>
+
+  <!-- Script -->
+    <script>
+    let currentVideoId = "";
+
+    async function searchVideos() {
+        const topic = document.getElementById("topic").value.trim();
+        if (!topic) return;
+
+        document.getElementById("loader").classList.remove("hidden");
+        document.getElementById("results").innerHTML = "";
+
+        const res = await fetch("/search_videos", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "secret123"
+        },
+        body: JSON.stringify({ topic })
+        });
+
+        document.getElementById("loader").classList.add("hidden");
+
+        if (!res.ok) {
+        alert("Search failed");
+        return;
+        }
+
+        const data = await res.json();
+        const container = document.getElementById("results");
+
+        data.videos.forEach(video => {
+        // const rawPoints = video.summary.split(/\*\*Point\s\d+\:\*\*/).filter(p => p.trim());
+        const rawPoints = video.summary.split(/\*\*Point\d+\:\*\*/).filter(p => p.trim());
+        const summaryItems = rawPoints.map(pt => `<li>${pt.trim()}</li>`).join("");
+
+        const block = document.createElement("div");
+        block.className = "bg-white rounded-xl shadow p-4 flex gap-4";
+
+        // block.innerHTML = `
+        //     <iframe class="w-1/2 h-48 rounded" src="${video.iframe}" frameborder="0" allowfullscreen></iframe>
+        //     <div class="w-1/2">
+        //     <h2 class="text-lg font-bold mb-2">${video.title}</h2>
+        //     <p class="text-sm text-gray-700 mb-1">${video.channel}</p>
+        //   <!--  
+        //     <button onclick="openChat('${video.vid_id}')"
+        //             class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">
+        //         Chat
+        //     </button>
+        //   -->
+        //     <ul class="mt-2 text-sm list-disc list-inside text-gray-800">${summaryItems}</ul>
+        //     </div>
+        // `;
+
+        block.innerHTML = `
+          <div class="w-full">
+            <iframe class="w-full h-80 rounded" src="${video.iframe}" frameborder="0" allowfullscreen></iframe>
+            <h2 class="text-lg font-bold mt-4 mb-1">${video.title}</h2>
+            <p class="text-sm text-gray-700 mb-2">${video.channel}</p>
+            
+            <button onclick="openChat('${video.vid_id}')"
+                    class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">
+                Chat
+            </button>
+          
+            <ul class="mt-2 text-sm list-disc list-inside text-gray-800">${summaryItems}</ul>
+          </div>
+        `;
+
+        container.appendChild(block);
+        });
+    }
+
+    function openChat(vidId) {
+        currentVideoId = vidId;
+        document.getElementById("chatInput").value = "";
+        document.getElementById("chatResponse").innerText = "";
+        document.getElementById("chatModal").classList.remove("hidden");
+        document.getElementById("chatModal").classList.add("flex");
+    }
+
+    function closeChat() {
+        document.getElementById("chatModal").classList.add("hidden");
+        document.getElementById("chatModal").classList.remove("flex");
+    }
+
+
+
+    async function sendChat() {
+      const query = document.getElementById("chatInput").value.trim();
+      if (!query) return;
+
+      const chatResponse = document.getElementById("chatResponse");
+      const sendBtn = document.querySelector("#chatModal button:last-child"); // Get Send button
+
+      // 🔒 Disable button while waiting
+      sendBtn.disabled = true;
+      sendBtn.classList.add("opacity-50", "cursor-not-allowed");
+
+      chatResponse.innerText = "⏳ Waiting for response...";
+
+      const res = await fetch("/chat_video", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              "x-api-key": "secret123"
+          },
+          body: JSON.stringify({ video_id: currentVideoId, query })
+      });
+
+      // 🔓 Re-enable button
+      sendBtn.disabled = false;
+      sendBtn.classList.remove("opacity-50", "cursor-not-allowed");
+
+      if (!res.ok) {
+          chatResponse.innerText = "❌ Chat failed.";
+          return;
+      }
+
+      const data = await res.json();
+      chatResponse.innerText = `💬 ${data.answer}`;
+  }
+
+    // async function sendChat() {
+    //     const query = document.getElementById("chatInput").value.trim();
+    //     if (!query) return;
+
+    //     document.getElementById("chatResponse").innerText = "⏳ Waiting for response...";
+
+    //     const res = await fetch("/chat_video", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //         "x-api-key": "secret123"
+    //     },
+    //     body: JSON.stringify({ video_id: currentVideoId, query })
+    //     });
+
+    //     if (!res.ok) {
+    //     document.getElementById("chatResponse").innerText = "❌ Chat failed.";
+    //     return;
+    //     }
+
+    //     const data = await res.json();
+    //     document.getElementById("chatResponse").innerText = `💬 ${data.answer}`;
+    // }
+    </script>
+
+</body>
+</html>
